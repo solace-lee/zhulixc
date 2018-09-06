@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+		<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+		<meta name="HandheldFriendly" content="true">
+
+		<!-- 删除苹果默认的工具栏和菜单栏 -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+
+		<!-- 设置苹果工具栏颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+		<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+		<meta name="format-detection" content="telphone=no, email=no" />
+
+		<!-- uc强制竖屏 -->
+		<meta name="screen-orientation" content="portrait">
+
+		<!-- QQ强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
+
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+
+		<!-- UC应用模式 -->
+		<meta name="browsermode" content="application">
+
+		<!-- QQ应用模式 -->
+		<meta name="x5-page-mode" content="app">
+
+		<!-- windows phone 点击无高光 -->
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>助力乡村</title>
+		<!--<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=  Rpr4r5rZWDlP4mPXhRiQvoQ13VrUkUMD"></script> -->
+		<script src="http://mockjs.com/dist/mock.js"></script>
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=deff2dcf2e3baae4659fa43854600c62&plugin=AMap.CitySearch"></script>
+		<link rel="stylesheet" href="static/bootstrap/css/bootstrap.css" />
+		<script src="static/bootstrap/js/jquery-1.10.1.min.js"></script>
+		<script src="static/bootstrap/js/mui.min.js"></script>
+		<script src="static/bootstrap/js/bootstrap.js"></script>
+		<script>
+			mui.init({
+				keyEventBind: {
+					backbutton: true //关闭back按键监听
+				}
+			});
+			// //首页返回键处理
+			// //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+			var first = null;
+			mui.back = function() {
+				//首次按键，提示 再按一次退出应用
+				if(!first) {
+					first = new Date().getTime(); //记录第一次按下回退键的时间
+					mui.toast('再按一次退出应用'); //给出提示
+					history.go(-1) //回退到上一页面
+					setTimeout(function() { //1s中后清除
+						first = null;
+					}, 1000);
+				} else {
+					if(new Date().getTime() - first < 1000) { //如果两次按下的时间小于1s，
+						plus.runtime.quit(); //那么就退出app
+
+					}
+				}
+			};
+		</script>
+	</head>
+
+	<body ontouchstart="">
+		<div id="app"></div>
+	</body>
+
+</html>
